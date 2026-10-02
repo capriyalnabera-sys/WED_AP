@@ -1,141 +1,138 @@
 <title>Nabera Wedding Wardrobe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Mukta:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Mukta:wght@300;400;500;600&display=swap">
 <style>
-/* Layout: a three-day itinerary ribbon; each function is a jharokha-arched card holding its dress mood, palette and an editable outfit sheet */
+/* Layout: a floral garland hero, day tabs, and arched outfit cards crowned with flowers; one shared plan per family member */
 :root {
-  --bg: #fbf3f5;
+  --bg: #fffdfb;
   --paper: #ffffff;
-  --ink: #2a1420;
-  --muted: #7a5f6b;
-  --line: #ecd9e0;
-  --rani: #b3155c;
-  --marigold: #e39b12;
-  --leaf: #3f7a4a;
-  --chip: #f6e6ec;
-  --font-display: "Rozha One", "Playfair Display", Georgia, serif;
+  --ink: #34302f;
+  --muted: #857a76;
+  --line: #f0e4df;
+  --blush: #e79aa3;
+  --blush-soft: #fbeef0;
+  --sage: #5f8466;
+  --sage-soft: #eef4ef;
+  --peach: #f4bf96;
+  --gold: #b58e45;
+  --lilac: #b9a3d6;
+  --font-display: "Gilda Display", "Playfair Display", Georgia, serif;
   --font-body: "Mukta", "Segoe UI", system-ui, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #1b0f16; --paper: #26151f; --ink: #f7e9ef; --muted: #c4a7b4;
-    --line: #3d2733; --rani: #ff5c9d; --marigold: #f5b942; --leaf: #7fc28a; --chip: #331e2a;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #1b0f16; --paper: #26151f; --ink: #f7e9ef; --muted: #c4a7b4;
-  --line: #3d2733; --rani: #ff5c9d; --marigold: #f5b942; --leaf: #7fc28a; --chip: #331e2a;
-  color-scheme: dark;
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55; }
-.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 56px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 18px; padding-block: 18px 56px; }
 
 /* hero */
-.hero { display: grid; gap: 14px; text-align: left; padding-block: 12px 26px; border-bottom: 1px solid var(--line); }
-.toran { height: 26px; width: 100%; display: block; }
-.hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.05; margin: 0; text-wrap: balance; }
-.hero h1 em { font-style: normal; color: var(--rani); }
-.hero p { margin: 0; color: var(--muted); max-width: 60ch; }
-.meta { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
-.stat { display: flex; flex-direction: column; }
-.stat b { font-family: var(--font-display); font-weight: 400; font-size: 1.7rem; color: var(--rani); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.hero { position: relative; display: grid; gap: 14px; padding-block: 120px 28px; text-align: center; justify-items: center; }
+.garland { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(100%, 760px); height: 120px; }
+.hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.2rem, 6vw, 3.5rem); line-height: 1.08; margin: 0; text-wrap: balance; }
+.hero h1 em { font-style: italic; color: var(--blush); }
+.hero p { margin: 0; color: var(--muted); max-width: 58ch; }
+.meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; align-items: center; margin-top: 6px; width: 100%; }
+.stat { display: flex; flex-direction: column; align-items: center; }
+.stat b { font-family: var(--font-display); font-weight: 400; font-size: 1.8rem; color: var(--sage); font-variant-numeric: tabular-nums; line-height: 1.1; }
 .stat span { font-size: .85rem; color: var(--muted); }
-.bar { flex: 1 1 220px; min-width: 0; }
-.bar-track { height: 8px; border-radius: 99px; background: var(--chip); overflow: hidden; }
-.bar-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--marigold), var(--rani)); transition: width .4s ease; }
+.bar { flex: 0 1 260px; min-width: 0; display: grid; gap: 4px; }
+.bar-track { height: 8px; border-radius: 99px; background: var(--blush-soft); overflow: hidden; }
+.bar-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--peach), var(--blush)); transition: width .4s ease; }
 .bar small { color: var(--muted); font-size: .85rem; }
+.sync { font-size: .82rem; color: var(--muted); }
+.sync.live { color: var(--sage); }
 
-/* day tabs */
-.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-block: 24px 8px; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); padding-block: 10px; z-index: 5; }
-.tab { font: inherit; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 99px; padding: 6px 16px; cursor: pointer; }
-.tab[aria-selected="true"] { background: var(--rani); border-color: var(--rani); color: var(--paper); }
-.tab:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--marigold); outline-offset: 2px; }
+/* people + days */
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; border-block: 1px solid var(--line); display: grid; gap: 8px; margin-top: 8px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.row-label { font-size: .82rem; color: var(--muted); min-width: 64px; }
+.pill { font: inherit; font-size: .93rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 99px; padding: 4px 14px; cursor: pointer; }
+.pill[aria-pressed="true"], .pill[aria-selected="true"] { background: var(--sage); border-color: var(--sage); color: var(--paper); }
+.pill.add { border-style: dashed; color: var(--sage); }
+.add-form { display: flex; gap: 6px; }
+.add-form input { font: inherit; font-size: .93rem; border: 1px solid var(--line); border-radius: 99px; padding: 4px 12px; width: 150px; color: var(--ink); background: var(--paper); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
-.day { display: grid; gap: 18px; margin-top: 18px; }
+.day { display: grid; gap: 18px; margin-top: 26px; }
 .day-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.day-head h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.8rem; margin: 0; }
+.day-head h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0; }
 .day-head span { color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 22px; }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 18px; }
-
-/* function card with jharokha arch top */
-.fn { background: var(--paper); border: 1px solid var(--line); border-radius: 160px 160px 14px 14px; padding: 34px 22px 22px; display: grid; gap: 14px; align-content: start; min-width: 0; position: relative; }
+/* card */
+.fn { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 170px 170px 16px 16px; padding: 64px 22px 22px; display: grid; gap: 14px; align-content: start; min-width: 0; margin-top: 26px; }
+.crown { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); width: 150px; height: 74px; }
 .fn-top { text-align: center; display: grid; gap: 2px; }
-.fn-time { font-variant-numeric: tabular-nums; color: var(--marigold); font-weight: 600; font-size: .95rem; }
-.fn h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.55rem; margin: 0; line-height: 1.15; text-wrap: balance; }
+.fn-time { font-variant-numeric: tabular-nums; color: var(--gold); font-weight: 600; font-size: .95rem; }
+.fn h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; margin: 0; line-height: 1.15; text-wrap: balance; }
 .fn-mood { color: var(--muted); font-size: .93rem; margin: 0; text-align: center; }
-.done-badge { position: absolute; top: 14px; right: 18px; font-size: .78rem; padding: 2px 10px; border-radius: 99px; background: var(--chip); color: var(--muted); }
-.done-badge.ok { background: var(--leaf); color: var(--paper); }
-
+.badge { position: absolute; top: 16px; right: 18px; font-size: .78rem; padding: 2px 10px; border-radius: 99px; background: var(--blush-soft); color: var(--muted); }
+.badge.ok { background: var(--sage); color: var(--paper); }
 .swatches { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 .sw { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--line); cursor: pointer; padding: 0; }
-.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--rani); }
+.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--sage); }
 .sw-label { text-align: center; font-size: .85rem; color: var(--muted); min-height: 1.3em; }
-
-.ideas { font-size: .9rem; background: var(--chip); border-radius: 10px; padding: 10px 12px; }
-.ideas b { font-weight: 600; }
-
+.ideas { font-size: .9rem; background: var(--sage-soft); border-radius: 12px; padding: 10px 12px; }
+.ideas b { font-weight: 600; color: var(--sage); }
 .fields { display: grid; gap: 10px; }
 .field { display: grid; gap: 2px; }
 .field label { font-size: .82rem; color: var(--muted); }
 .field input, .field textarea { font: inherit; font-size: .95rem; color: var(--ink); background: transparent; border: 0; border-bottom: 1px dashed var(--line); padding: 4px 0; width: 100%; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: .6; }
-
-.checks { display: flex; flex-wrap: wrap; gap: 6px; }
+.field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: .55; }
+.checks { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .ck { position: relative; }
 .ck input { position: absolute; opacity: 0; pointer-events: none; }
 .ck label { display: inline-block; font-size: .82rem; padding: 3px 11px; border-radius: 99px; border: 1px solid var(--line); cursor: pointer; color: var(--muted); }
-.ck input:checked + label { background: var(--leaf); border-color: var(--leaf); color: var(--paper); }
-.ck input:focus-visible + label { outline: 2px solid var(--marigold); outline-offset: 2px; }
+.ck input:checked + label { background: var(--blush); border-color: var(--blush); color: var(--paper); }
+.ck input:focus-visible + label { outline: 2px solid var(--gold); outline-offset: 2px; }
 
-/* summary */
-.summary { margin-top: 44px; display: grid; gap: 14px; }
-.summary h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.8rem; margin: 0; }
-.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
-table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: .92rem; }
+/* divider + summary */
+.divider { display: block; width: 220px; height: 34px; margin: 46px auto 0; }
+.summary { margin-top: 14px; display: grid; gap: 14px; }
+.summary h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; margin: 0; text-align: center; }
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: .92rem; }
 th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { font-weight: 600; color: var(--muted); font-size: .82rem; }
+th { font-weight: 600; color: var(--muted); font-size: .82rem; background: var(--blush-soft); }
 tr:last-child td { border-bottom: 0; }
 td .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; margin-right: 6px; box-shadow: 0 0 0 1px var(--line); }
-.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.btn { font: inherit; border-radius: 99px; padding: 8px 18px; cursor: pointer; border: 1px solid var(--rani); background: var(--rani); color: var(--paper); }
-.btn.ghost { background: transparent; color: var(--rani); }
-.toast { color: var(--leaf); font-size: .9rem; }
-.confirm { display: flex; gap: 8px; align-items: center; font-size: .9rem; color: var(--muted); }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: center; }
+.btn { font: inherit; border-radius: 99px; padding: 8px 18px; cursor: pointer; border: 1px solid var(--sage); background: var(--sage); color: var(--paper); }
+.toast { color: var(--sage); font-size: .9rem; }
+#copy-fallback { width: 100%; font: inherit; font-size: .85rem; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
 
-footer { margin-top: 52px; text-align: center; display: grid; gap: 6px; color: var(--muted); }
-footer .note { font-family: var(--font-display); font-size: 1.35rem; color: var(--ink); text-wrap: balance; }
-footer .note em { font-style: normal; color: var(--rani); }
-
+footer { position: relative; margin-top: 56px; text-align: center; display: grid; gap: 6px; justify-items: center; color: var(--muted); }
+footer svg { width: 260px; height: 70px; }
+footer .note { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-wrap: balance; }
+footer .note em { color: var(--blush); }
 @media (prefers-reduced-motion: reduce) { .bar-fill { transition: none; } }
 </style>
 
 <div class="wrap">
   <header class="hero">
-    <svg class="toran" viewBox="0 0 600 26" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 3 H600" stroke="var(--marigold)" stroke-width="2" fill="none"/>
-      <g id="toran-leaves"></g>
-    </svg>
+    <svg class="garland" id="garland" viewBox="0 0 760 120" aria-hidden="true"></svg>
     <h1>Wedding <em>wardrobe</em> planner</h1>
-    <p>Nine functions over three days, 20 to 22 Dec 2026. Pick a colour for each look, note the outfit, jewellery and shoes, and tick things off as they get stitched, ironed and packed. Your notes stay saved in this browser.</p>
+    <p>Nine functions over three days, 20 to 22 Dec 2026. Choose your name, pick a colour for each look, note the outfit, jewellery and shoes, and tick things off as they get stitched, ironed and packed. Everyone with the link sees the same plan.</p>
     <div class="meta">
       <div class="stat"><b id="countdown">–</b><span>days to Vinayak</span></div>
       <div class="stat"><b id="ready-count">0/9</b><span>looks packed</span></div>
       <div class="bar">
         <div class="bar-track"><div class="bar-fill" id="bar-fill"></div></div>
-        <small id="bar-text">0% of all prep steps done</small>
+        <small id="bar-text">0% of prep steps done</small>
       </div>
     </div>
+    <span class="sync" id="sync" role="status">Connecting to the shared plan…</span>
   </header>
 
-  <nav class="tabs" role="tablist" id="tabs"></nav>
+  <div class="controls">
+    <div class="row" id="people-row"><span class="row-label">Planning for</span></div>
+    <div class="row" role="tablist" id="tabs"><span class="row-label">Day</span></div>
+  </div>
   <main id="days"></main>
 
+  <svg class="divider" id="divider" viewBox="0 0 220 34" aria-hidden="true"></svg>
   <section class="summary" aria-labelledby="sum-h">
-    <h2 id="sum-h">Look book at a glance</h2>
+    <h2 id="sum-h">Look book for <span id="sum-who">the family</span></h2>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th>Function</th><th>When</th><th>Colour</th><th>Outfit</th><th>Jewellery &amp; shoes</th><th>Status</th></tr></thead>
@@ -144,13 +141,13 @@ footer .note em { font-style: normal; color: var(--rani); }
     </div>
     <div class="actions">
       <button class="btn" id="copy-btn" type="button">Copy plan for WhatsApp</button>
-      <button class="btn ghost" id="reset-btn" type="button">Clear my notes</button>
       <span class="toast" id="toast" role="status"></span>
     </div>
-    <textarea id="copy-fallback" hidden readonly rows="8" style="width:100%;font:inherit;font-size:.85rem;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px"></textarea>
+    <textarea id="copy-fallback" hidden readonly rows="8"></textarea>
   </section>
 
   <footer>
+    <svg id="footer-flowers" viewBox="0 0 260 70" aria-hidden="true"></svg>
     <div class="note">Please come with a <em>happy heart</em> and a beautiful smile</div>
     <div>With regards, Rajni &amp; Jitendra Nabera</div>
   </footer>
@@ -201,137 +198,242 @@ const DAYS = [
       ideas: "Silk saree or a lighter lehenga, shawl for the cold night. Keep jewellery from varmala, swap to flats. Men: same sherwani or a warm bandhgala." }
   ]}
 ];
+const ALL = DAYS.flatMap(d => d.fns.map(f => ({ ...f, day: d })));
 const STEPS = ["Decided","Bought","Stitched","Ironed","Packed"];
-const KEY = "nabera-wardrobe-v1";
+const FIELDS = ["outfit","jewel","shoes","extras"];
+const LKEY = "nabera-wardrobe-v2";
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 
-let state = {};
-try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { state = {}; }
-const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
-const get = (id) => (state[id] ||= { colour: null, outfit: "", jewel: "", shoes: "", extras: "", steps: [] });
-const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+/* ---------- florals (drawn in SVG) ---------- */
+function flower(cx, cy, r, petals, fill, centre, rot = 0, inner) {
+  let s = `<g transform="translate(${cx} ${cy}) rotate(${rot})">`;
+  for (let i = 0; i < petals; i++) s += `<ellipse cx="0" cy="${-r * .55}" rx="${r * .38}" ry="${r * .55}" fill="${fill}" transform="rotate(${i * 360 / petals})" opacity=".92"/>`;
+  if (inner) for (let i = 0; i < petals; i++) s += `<ellipse cx="0" cy="${-r * .32}" rx="${r * .24}" ry="${r * .34}" fill="${inner}" transform="rotate(${i * 360 / petals + 180 / petals})"/>`;
+  return s + `<circle r="${r * .22}" fill="${centre}"/></g>`;
+}
+function marigold(cx, cy, r) {
+  let s = "";
+  [[1, "#f2a03d"], [.75, "#f6b74f"], [.5, "#f9cc6b"]].forEach(([k, c], j) => {
+    const n = 14 - j * 3;
+    for (let i = 0; i < n; i++) s += `<ellipse cx="${cx}" cy="${cy - r * k * .6}" rx="${r * k * .22}" ry="${r * k * .42}" fill="${c}" transform="rotate(${i * 360 / n + j * 9} ${cx} ${cy})"/>`;
+  });
+  return s + `<circle cx="${cx}" cy="${cy}" r="${r * .16}" fill="#d9822b"/>`;
+}
+function leaf(x, y, len, rot, fill) {
+  return `<path d="M0 0 Q${len * .5} ${-len * .28} ${len} 0 Q${len * .5} ${len * .28} 0 0Z" fill="${fill}" transform="translate(${x} ${y}) rotate(${rot})"/>`;
+}
+function bud(x, y, r, fill) { return `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}"/>`; }
 
-/* toran leaves */
-(function () {
-  const g = document.getElementById("toran-leaves"); let h = "";
-  for (let i = 0; i < 30; i++) {
-    const x = 10 + i * 20, c = i % 3 === 0 ? "var(--marigold)" : (i % 3 === 1 ? "var(--leaf)" : "var(--rani)");
-    h += `<path d="M${x} 3 q-5 9 0 18 q5 -9 0 -18z" fill="${c}"/>`;
+(function drawFlorals() {
+  const blush = css("--blush"), peach = css("--peach"), sage = css("--sage"), lilac = css("--lilac"), gold = css("--gold");
+  const leafC = "#9bb79e", leafD = "#7d9b7f";
+  // hero garland: a swag with flowers along it
+  let g = `<path d="M30 20 Q380 120 730 20" stroke="${leafD}" stroke-width="1.5" fill="none"/>`;
+  const pt = t => [ (1 - t) ** 2 * 30 + 2 * (1 - t) * t * 380 + t * t * 730, (1 - t) ** 2 * 20 + 2 * (1 - t) * t * 120 + t * t * 20 ];
+  for (let i = 0; i <= 16; i++) {
+    const t = i / 16, [x, y] = pt(t);
+    g += leaf(x, y, 22, (i % 2 ? -40 : 140) + i * 3, i % 2 ? leafC : leafD);
   }
-  g.innerHTML = h;
+  for (let i = 0; i <= 8; i++) {
+    const [x, y] = pt(i / 8);
+    const kind = i % 3;
+    g += kind === 0 ? marigold(x, y, 17) : kind === 1 ? flower(x, y, 18, 5, blush, gold, i * 20, "#f6c6cb") : flower(x, y, 14, 6, lilac, "#fff3c4", i * 15);
+    if (i % 2 === 0) g += bud(x + 16, y + 14, 3.2, peach) + bud(x - 15, y + 15, 2.6, blush);
+  }
+  g += flower(26, 20, 15, 5, peach, gold, 10) + flower(734, 20, 15, 5, peach, gold, 40);
+  document.getElementById("garland").innerHTML = g;
+
+  // divider
+  let d = `<path d="M10 17 H210" stroke="${css("--line")}" stroke-width="1.5"/>`;
+  d += leaf(90, 17, 18, 160, leafC) + leaf(130, 17, 18, 20, leafC) + leaf(96, 17, 14, 200, leafD) + leaf(124, 17, 14, -20, leafD);
+  d += marigold(110, 17, 13) + flower(78, 17, 7, 5, blush, gold) + flower(142, 17, 7, 5, blush, gold);
+  document.getElementById("divider").innerHTML = d;
+
+  // footer bouquet
+  let f = "";
+  [[-150, 50], [-120, 40], [-60, 30], [-30, 34], [20, 30], [60, 40]].forEach(([r, l], i) => f += leaf(130, 62, l, r, i % 2 ? leafC : leafD));
+  f += flower(80, 40, 18, 5, blush, gold, 15, "#f6c6cb") + marigold(130, 30, 22) + flower(182, 40, 18, 6, lilac, "#fff3c4", 10);
+  f += bud(104, 54, 4, peach) + bud(158, 54, 4, peach) + bud(60, 52, 3, blush) + bud(202, 52, 3, blush);
+  document.getElementById("footer-flowers").innerHTML = f;
 })();
 
-/* countdown */
-(function () {
-  const d = Math.ceil((new Date(2026, 11, 20) - new Date()) / 86400000);
-  document.getElementById("countdown").textContent = d > 0 ? d : "Today";
-})();
+function crownSvg(i) {
+  const blush = css("--blush"), peach = css("--peach"), lilac = css("--lilac"), gold = css("--gold");
+  const sets = [[blush, peach], [lilac, blush], [peach, lilac]];
+  const [a, b] = sets[i % 3];
+  let s = leaf(75, 44, 34, 200, "#7d9b7f") + leaf(75, 44, 34, -20, "#7d9b7f") + leaf(75, 44, 26, 225, "#9bb79e") + leaf(75, 44, 26, -45, "#9bb79e");
+  s += flower(46, 46, 16, 5, a, gold, i * 13, "#fde6e9") + flower(104, 46, 16, 6, b, "#fff3c4", i * 7);
+  s += marigold(75, 38, 20);
+  s += bud(28, 56, 3.5, peach) + bud(122, 56, 3.5, peach);
+  return `<svg class="crown" viewBox="0 0 150 74" aria-hidden="true">${s}</svg>`;
+}
 
-/* tabs + days */
-const tabsEl = document.getElementById("tabs"), daysEl = document.getElementById("days");
-let saved; try { saved = localStorage.getItem(KEY + "-tab"); } catch (e) {}
-const hash = location.hash.slice(1);
-let active = DAYS.some(d => d.id === hash) ? hash : (DAYS.some(d => d.id === saved) ? saved : "sun");
+/* ---------- state ---------- */
+const FAMILY = { id: "family", name: "Family" };
+let people = [FAMILY];
+let who = "family";
+let looks = {};            // docId -> data
+let db = null, shared = false;
+const docId = (p, f) => `${p}__${f}`;
+const look = (f) => looks[docId(who, f)] || { colour: null, outfit: "", jewel: "", shoes: "", extras: "", steps: [] };
 
-function fnCard(f) {
-  const s = get(f.id);
-  const sw = f.palette.map(([n, c]) =>
-    `<button type="button" class="sw" style="background:${c}" title="${n}" aria-label="${n}" aria-pressed="${s.colour === n}" data-fn="${f.id}" data-col="${n}"></button>`).join("");
-  const fld = (k, label, ph, ta) => `<div class="field"><label for="${f.id}-${k}">${label}</label>${ta
-    ? `<textarea id="${f.id}-${k}" rows="2" data-fn="${f.id}" data-k="${k}" placeholder="${ph}">${esc(s[k])}</textarea>`
-    : `<input id="${f.id}-${k}" data-fn="${f.id}" data-k="${k}" placeholder="${ph}" value="${esc(s[k])}">`}</div>`;
-  const ck = STEPS.map(st => `<span class="ck"><input type="checkbox" id="${f.id}-${st}" data-fn="${f.id}" data-step="${st}" ${s.steps.includes(st) ? "checked" : ""}><label for="${f.id}-${st}">${st}</label></span>`).join("");
-  return `<article class="fn" id="card-${f.id}">
-    <span class="done-badge" id="badge-${f.id}"></span>
+try { const l = JSON.parse(localStorage.getItem(LKEY) || "{}"); looks = l.looks || {}; people = l.people?.length ? l.people : [FAMILY]; who = localStorage.getItem(LKEY + "-who") || "family"; } catch (e) {}
+const saveLocal = () => { try { localStorage.setItem(LKEY, JSON.stringify({ looks, people })); } catch (e) {} };
+
+const timers = {};
+function persist(f) {
+  const id = docId(who, f), body = { ...look(f), person: who, fn: f, updatedAt: Date.now() };
+  looks[id] = body;
+  if (!shared) { saveLocal(); return; }
+  clearTimeout(timers[id]);
+  timers[id] = setTimeout(() => {
+    db.collection("looks").doc(id).set(body).finally(() => delete timers[id]).catch(e => setSync(e?.code === "not_granted" || e?.code === "permission_denied" ? "You can view this plan but not edit it" : "Couldn't save. Check your connection and try again", false));
+  }, 500);
+}
+
+/* ---------- UI ---------- */
+const daysEl = document.getElementById("days"), tabsEl = document.getElementById("tabs"), peopleRow = document.getElementById("people-row");
+let activeDay = "sun";
+try { activeDay = localStorage.getItem(LKEY + "-tab") || "sun"; } catch (e) {}
+if (DAYS.some(d => d.id === location.hash.slice(1))) activeDay = location.hash.slice(1);
+
+function card(f, i) {
+  return `<article class="fn" id="card-${f.id}">${crownSvg(i)}
+    <span class="badge" id="badge-${f.id}"></span>
     <div class="fn-top"><span class="fn-time">${f.time}</span><h3>${esc(f.name)}</h3></div>
     <p class="fn-mood">${f.mood}</p>
-    <div class="swatches">${sw}</div>
-    <div class="sw-label" id="swl-${f.id}">${s.colour ? "Chosen: " + s.colour : "Tap a colour to choose"}</div>
+    <div class="swatches">${f.palette.map(([n, c]) => `<button type="button" class="sw" style="background:${c}" title="${n}" aria-label="${n}" aria-pressed="false" data-fn="${f.id}" data-col="${n}"></button>`).join("")}</div>
+    <div class="sw-label" id="swl-${f.id}"></div>
     <div class="ideas"><b>Ideas:</b> ${f.ideas}</div>
     <div class="fields">
-      ${fld("outfit", "Outfit", "e.g. yellow bandhej saree from Jaipur")}
-      ${fld("jewel", "Jewellery", "e.g. kundan jhumkas, gold bangles")}
-      ${fld("shoes", "Footwear & bag", "e.g. golden juttis, potli")}
-      ${fld("extras", "Hair, makeup & notes", "e.g. gajra bun, book salon 9 AM", true)}
+      ${[["outfit","Outfit","e.g. yellow bandhej saree"],["jewel","Jewellery","e.g. kundan jhumkas, gold bangles"],["shoes","Footwear & bag","e.g. golden juttis, potli"],["extras","Hair, makeup & notes","e.g. gajra bun, salon at 8 AM"]]
+        .map(([k, l, ph]) => `<div class="field"><label for="${f.id}-${k}">${l}</label>${k === "extras"
+          ? `<textarea id="${f.id}-${k}" rows="2" data-fn="${f.id}" data-k="${k}" placeholder="${ph}"></textarea>`
+          : `<input id="${f.id}-${k}" data-fn="${f.id}" data-k="${k}" placeholder="${ph}">`}</div>`).join("")}
     </div>
-    <div class="checks" aria-label="Prep steps">${ck}</div>
+    <div class="checks">${STEPS.map(st => `<span class="ck"><input type="checkbox" id="${f.id}-${st}" data-fn="${f.id}" data-step="${st}"><label for="${f.id}-${st}">${st}</label></span>`).join("")}</div>
   </article>`;
 }
-
+let n = 0;
 DAYS.forEach(d => {
-  tabsEl.insertAdjacentHTML("beforeend", `<button class="tab" role="tab" id="tab-${d.id}" aria-controls="day-${d.id}" data-day="${d.id}">${d.tab}</button>`);
+  tabsEl.insertAdjacentHTML("beforeend", `<button class="pill" role="tab" id="tab-${d.id}" data-day="${d.id}">${d.tab}</button>`);
   daysEl.insertAdjacentHTML("beforeend", `<section class="day" role="tabpanel" id="day-${d.id}" aria-labelledby="tab-${d.id}">
     <div class="day-head"><h2>${d.title}</h2><span>${d.date} · ${d.fns.length} functions</span></div>
-    <div class="grid">${d.fns.map(fnCard).join("")}</div></section>`);
+    <div class="grid">${d.fns.map(f => card(f, n++)).join("")}</div></section>`);
+});
+function showDay(id) {
+  activeDay = id;
+  DAYS.forEach(d => { document.getElementById("tab-" + d.id).setAttribute("aria-selected", d.id === id); document.getElementById("day-" + d.id).hidden = d.id !== id; });
+  try { localStorage.setItem(LKEY + "-tab", id); } catch (e) {}
+}
+tabsEl.addEventListener("click", e => { const b = e.target.closest("[data-day]"); if (b) showDay(b.dataset.day); });
+showDay(activeDay);
+
+function renderPeople() {
+  if (!people.some(p => p.id === who)) who = "family";
+  peopleRow.querySelectorAll(".pill, .add-form").forEach(x => x.remove());
+  people.forEach(p => peopleRow.insertAdjacentHTML("beforeend", `<button class="pill" type="button" data-person="${esc(p.id)}" aria-pressed="${p.id === who}">${esc(p.name)}</button>`));
+  peopleRow.insertAdjacentHTML("beforeend", `<button class="pill add" type="button" id="add-person">+ Add person</button>`);
+  document.getElementById("sum-who").textContent = who === "family" ? "the family" : (people.find(p => p.id === who)?.name || "");
+}
+peopleRow.addEventListener("click", e => {
+  const p = e.target.closest("[data-person]");
+  if (p) { who = p.dataset.person; try { localStorage.setItem(LKEY + "-who", who); } catch (e) {} renderPeople(); fillAll(true); return; }
+  if (e.target.id === "add-person") {
+    e.target.outerHTML = `<form class="add-form" id="add-form"><input id="new-person" placeholder="Name" maxlength="30" aria-label="Name" autocomplete="off"><button class="pill" type="submit">Add</button></form>`;
+    document.getElementById("new-person").focus();
+  }
+});
+peopleRow.addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("new-person").value.trim();
+  if (!name) { renderPeople(); return; }
+  const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 24) + "-" + Math.random().toString(36).slice(2, 6);
+  people.push({ id, name }); who = id;
+  try { localStorage.setItem(LKEY + "-who", who); } catch (e) {}
+  if (shared) db.collection("people").doc(id).set({ name, createdAt: Date.now() }).catch(() => setSync("Couldn't add that name. You may only have view access", false));
+  else saveLocal();
+  renderPeople(); fillAll(true);
 });
 
-function showDay(id) {
-  active = id;
-  DAYS.forEach(d => {
-    document.getElementById("tab-" + d.id).setAttribute("aria-selected", d.id === id);
-    document.getElementById("day-" + d.id).hidden = d.id !== id;
-  });
-  try { localStorage.setItem(KEY + "-tab", id); } catch (e) {}
+function fillCard(f, force) {
+  const s = look(f.id);
+  document.querySelectorAll(`.sw[data-fn="${f.id}"]`).forEach(x => x.setAttribute("aria-pressed", x.dataset.col === s.colour));
+  document.getElementById("swl-" + f.id).textContent = s.colour ? "Chosen: " + s.colour : "Tap a colour to choose";
+  FIELDS.forEach(k => { const el = document.getElementById(`${f.id}-${k}`); if (force || document.activeElement !== el) el.value = s[k] || ""; });
+  STEPS.forEach(st => document.getElementById(`${f.id}-${st}`).checked = (s.steps || []).includes(st));
 }
-tabsEl.addEventListener("click", e => { const b = e.target.closest(".tab"); if (b) showDay(b.dataset.day); });
-showDay(active);
+function fillAll(force) { ALL.forEach(f => fillCard(f, force)); refresh(); }
 
-/* interactions */
-const ALL = DAYS.flatMap(d => d.fns.map(f => ({ ...f, day: d })));
 daysEl.addEventListener("click", e => {
   const b = e.target.closest(".sw"); if (!b) return;
-  const s = get(b.dataset.fn);
+  const s = { ...look(b.dataset.fn) };
   s.colour = s.colour === b.dataset.col ? null : b.dataset.col;
-  document.querySelectorAll(`.sw[data-fn="${b.dataset.fn}"]`).forEach(x => x.setAttribute("aria-pressed", x.dataset.col === s.colour));
-  document.getElementById("swl-" + b.dataset.fn).textContent = s.colour ? "Chosen: " + s.colour : "Tap a colour to choose";
-  save(); refresh();
+  looks[docId(who, b.dataset.fn)] = s; persist(b.dataset.fn); fillCard(ALL.find(f => f.id === b.dataset.fn)); refresh();
 });
 daysEl.addEventListener("input", e => {
-  const t = e.target;
-  if (t.dataset.k) { get(t.dataset.fn)[t.dataset.k] = t.value; }
-  else if (t.dataset.step) {
-    const s = get(t.dataset.fn);
-    s.steps = t.checked ? [...new Set([...s.steps, t.dataset.step])] : s.steps.filter(x => x !== t.dataset.step);
-  } else return;
-  save(); refresh();
+  const t = e.target, fid = t.dataset.fn; if (!fid) return;
+  const s = { ...look(fid), steps: [...(look(fid).steps || [])] };
+  if (t.dataset.k) s[t.dataset.k] = t.value;
+  else if (t.dataset.step) s.steps = t.checked ? [...new Set([...s.steps, t.dataset.step])] : s.steps.filter(x => x !== t.dataset.step);
+  looks[docId(who, fid)] = s; persist(fid); refresh();
 });
 
 function refresh() {
   let total = 0, packed = 0, rows = "";
   ALL.forEach(f => {
-    const s = get(f.id); total += s.steps.length;
-    const isPacked = s.steps.includes("Packed"); if (isPacked) packed++;
-    const badge = document.getElementById("badge-" + f.id);
-    badge.textContent = isPacked ? "Packed" : `${s.steps.length}/${STEPS.length}`;
-    badge.className = "done-badge" + (isPacked ? " ok" : "");
+    const s = look(f.id), steps = s.steps || []; total += steps.length;
+    const isPacked = steps.includes("Packed"); if (isPacked) packed++;
+    const b = document.getElementById("badge-" + f.id);
+    b.textContent = isPacked ? "Packed" : `${steps.length}/${STEPS.length}`; b.className = "badge" + (isPacked ? " ok" : "");
     const hex = s.colour ? f.palette.find(p => p[0] === s.colour)?.[1] : null;
-    const status = isPacked ? "Packed" : (s.steps.length ? s.steps[s.steps.length - 1] : "Not started");
+    const status = isPacked ? "Packed" : (steps.length ? STEPS.filter(x => steps.includes(x)).pop() : "Not started");
     rows += `<tr><td>${esc(f.name)}</td><td>${f.day.tab.slice(4)}, ${f.time}</td>
-      <td>${hex ? `<span class="dot" style="background:${hex}"></span>${s.colour}` : "–"}</td>
+      <td>${hex ? `<span class="dot" style="background:${hex}"></span>${esc(s.colour)}` : "–"}</td>
       <td>${esc(s.outfit) || "–"}</td><td>${esc([s.jewel, s.shoes].filter(Boolean).join(" · ")) || "–"}</td><td>${status}</td></tr>`;
   });
   document.getElementById("sum-body").innerHTML = rows;
   const pct = Math.round(total / (ALL.length * STEPS.length) * 100);
   document.getElementById("bar-fill").style.width = pct + "%";
-  document.getElementById("bar-text").textContent = `${pct}% of all prep steps done`;
+  document.getElementById("bar-text").textContent = `${pct}% of prep steps done`;
   document.getElementById("ready-count").textContent = `${packed}/${ALL.length}`;
 }
-refresh();
 
-/* copy + reset */
+/* countdown */
+(function () { const d = Math.ceil((new Date(2026, 11, 20) - new Date()) / 86400000); document.getElementById("countdown").textContent = d > 0 ? d : "Today"; })();
+
+/* copy */
 const toast = (m) => { const t = document.getElementById("toast"); t.textContent = m; setTimeout(() => t.textContent = "", 2500); };
 document.getElementById("copy-btn").addEventListener("click", () => {
-  const txt = ["Nabera wedding wardrobe, 20–22 Dec 2026", ...DAYS.map(d =>
-    `\n${d.title}, ${d.date}\n` + d.fns.map(f => { const s = get(f.id);
-      return `• ${f.name} (${f.time}): ${s.colour || "colour tbd"}${s.outfit ? " – " + s.outfit : ""}${s.jewel ? " | " + s.jewel : ""}${s.shoes ? " | " + s.shoes : ""}`; }).join("\n"))].join("\n");
+  const nm = who === "family" ? "Family" : people.find(p => p.id === who)?.name;
+  const txt = [`Nabera wedding wardrobe (${nm}), 20–22 Dec 2026`, ...DAYS.map(d => `\n${d.title}, ${d.date}\n` + d.fns.map(f => { const s = look(f.id);
+    return `• ${f.name} (${f.time}): ${s.colour || "colour tbd"}${s.outfit ? " – " + s.outfit : ""}${s.jewel ? " | " + s.jewel : ""}${s.shoes ? " | " + s.shoes : ""}`; }).join("\n"))].join("\n");
   const fb = document.getElementById("copy-fallback");
   const fallback = () => { fb.value = txt; fb.hidden = false; fb.select(); toast("Select all and copy the text below"); };
   try { navigator.clipboard.writeText(txt).then(() => toast("Copied. Paste it in WhatsApp"), fallback); } catch (e) { fallback(); }
 });
-document.getElementById("reset-btn").addEventListener("click", function () {
-  const box = this.parentElement;
-  if (box.querySelector(".confirm")) return;
-  box.insertAdjacentHTML("beforeend", `<span class="confirm">Clear every note and tick? <button class="btn" type="button" id="yes">Clear</button><button class="btn ghost" type="button" id="no">Keep</button></span>`);
-  box.querySelector("#no").onclick = () => box.querySelector(".confirm").remove();
-  box.querySelector("#yes").onclick = () => { state = {}; save(); location.reload(); };
-});
+
+/* ---------- shared sync ---------- */
+function setSync(msg, live) { const s = document.getElementById("sync"); s.textContent = msg; s.className = "sync" + (live ? " live" : ""); }
+renderPeople(); fillAll(true);
+
+(async () => {
+  try { db = await window.claude?.use?.("db"); } catch (e) { db = null; }
+  if (!db) { setSync("Shared plan unavailable here. Your notes save in this browser only", false); return; }
+  shared = true; looks = {}; people = [FAMILY];
+  setSync("Shared plan · changes sync for everyone", true);
+  db.collection("people").onSnapshot(snap => {
+    people = [FAMILY, ...snap.docs.filter(d => d.exists).map(d => ({ id: d.id, name: String(d.data().name || "Someone").slice(0, 30), at: d.data().createdAt || 0 })).sort((a, b) => a.at - b.at)];
+    renderPeople();
+  }, () => setSync("Lost connection to the shared plan. Reload to reconnect", false));
+  let first = true;
+  db.collection("looks").onSnapshot(snap => {
+    snap.docChanges().forEach(ch => {
+      if (timers[ch.doc.id] && !first) return; // ignore echoes while this viewer is typing
+      if (ch.type === "removed") delete looks[ch.doc.id]; else looks[ch.doc.id] = { ...ch.doc.data() };
+    });
+    fillAll(first); first = false;
+  }, () => setSync("Lost connection to the shared plan. Reload to reconnect", false));
+})();
 </script>
